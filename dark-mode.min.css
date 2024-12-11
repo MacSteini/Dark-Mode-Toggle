@@ -1,0 +1,21 @@
+/*
+# Dark Mode Toggle Stylesheet (Minified)
+#
+# Author:
+# Name: Marco Steinbrecher
+# Email: dtm@steinbrecher.co
+# GitHub: https://github.com/MacSteini/dark-mode-toggle
+#
+# Styles for light and dark themes with smooth transitions. Includes:
+# - Theme variables for customisation
+# - Tooltips for accessibility and dynamic positioning
+# - Mobile-friendly adjustments
+#
+# Features:
+# - Theme-specific styles for backgrounds, text, links, and tooltips
+# - Responsive scaling for icons and tooltips
+# - RTL support
+#
+# MIT Licence applies. See GitHub for details.
+*/
+.hidden{display:none;}:root{--bg-color:#fff;--text-color:#000;--article-bg:#f9f9f9;--article-text:#333;--link-color:#1a0dab;--tooltip-bg:#333;--tooltip-color:#f39c12}[data-theme="dark"]{--bg-color:#121212;--text-color:#fff;--article-bg:#1e1e1e;--article-text:#ccc;--link-color:#8ab4f8;--tooltip-bg:#fff;--tooltip-color:#6495ed}body{background-color:var(--bg-color);color:var(--text-color);font-family:Arial,sans-serif;margin:0;padding:0;transition:background-color .3s ease-in-out,color .3s ease-in-out}article{background-color:var(--article-bg);color:var(--article-text);padding:1.5rem;margin:1rem auto;max-width:80rem;border-radius:.8rem;box-shadow:0 4px 8px rgba(0,0,0,.1);transition:background-color .3s ease-in-out,color .3s ease-in-out}article a{color:var(--link-color);text-decoration:none;transition:color .3s ease-in-out}article a:hover{text-decoration:underline}.dark-mode-toggle{font-size:clamp(2rem,1vw,3rem);padding:.5rem;border:none;background:none;background-color:transparent;color:var(--text-color);position:fixed;top:1rem;right:1rem;z-index:999;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:color .3s ease-in-out,background-color .3s ease-in-out;}.dark-mode-toggle:focus-visible{outline:2px solid var(--tooltip-color);outline-offset:4px;}.dark-mode-toggle:active{background-color:transparent}.dark-mode-toggle::after{content:attr(aria-label);position:absolute;top:150%;transform:translateX(-50%);background-color:var(--tooltip-bg);color:var(--tooltip-color);font-size:clamp(.7rem,1vw,1rem);padding:.4rem .8rem;border:.3rem solid var(--tooltip-color);border-radius:.4rem;opacity:0;white-space:nowrap;pointer-events:none;transition:opacity .3s ease-in-out,top .3s ease-in-out;z-index:1000}.dark-mode-toggle:hover::after,.dark-mode-toggle:focus::after{opacity:1;top:100%}@media (hover:none) and (pointer:coarse){.dark-mode-toggle{background-color:transparent}.dark-mode-toggle:focus{outline:none;box-shadow:none}.dark-mode-toggle::after{display:none}}.dark-mode-toggle i{border-radius:50%;padding:.2em;width:1em;height:1em;display:flex;align-items:center;justify-content:center;transition:transform .3s ease-in-out,color .3s ease-in-out,background-color .3s ease-in-out;border:.2rem solid var(--tooltip-color)}[data-theme="light"] .dark-mode-toggle i{color:var(--tooltip-color);background-color:var(--tooltip-bg)}[data-theme="dark"] .dark-mode-toggle i{transform:rotate(360deg);color:var(--tooltip-color);background-color:var(--tooltip-bg)}[dir="rtl"] .dark-mode-toggle{right:auto;left:1rem;}[dir="rtl"] .dark-mode-toggle::after{left:auto;right:50%;transform:translateX(50%);}

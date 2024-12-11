@@ -1,0 +1,188 @@
+/*
+# Dark Mode Toggle Stylesheet
+#
+# Author:
+# Name: Marco Steinbrecher
+# Email: dtm@steinbrecher.co
+# GitHub: https://github.com/MacSteini/dark-mode-toggle
+#
+# Styles for light and dark themes with smooth transitions. Includes:
+# - Theme variables for customisation
+# - Tooltips for accessibility and dynamic positioning
+# - Mobile-friendly adjustments
+#
+# Features:
+# - Theme-specific styles for backgrounds, text, links, and tooltips
+# - Responsive scaling for icons and tooltips
+# - RTL support
+#
+# MIT Licence applies. See GitHub for details.
+*/
+
+/* Hidden Class */
+/* Ensures elements are hidden until JavaScript enables them */
+.hidden {
+  display: none;
+}
+
+/* Theme Variables */
+/* Define color variables for light and dark themes */
+:root {
+  /* Light Theme Variables */
+  --bg-color: #fff; /* Background color for light theme */
+  --text-color: #000; /* Text color for light theme */
+  --article-bg: #f9f9f9; /* Article background for light theme */
+  --article-text: #333; /* Article text for light theme */
+  --link-color: #1a0dab; /* Link color for light theme */
+  --tooltip-bg: #333; /* Tooltip background for light theme */
+  --tooltip-color: #f39c12; /* Tooltip text color for light theme */
+}
+
+[data-theme="dark"] {
+  /* Dark Theme Variables */
+  --bg-color: #121212; /* Background color for dark theme */
+  --text-color: #fff; /* Text color for dark theme */
+  --article-bg: #1e1e1e; /* Article background for dark theme */
+  --article-text: #ccc; /* Article text for dark theme */
+  --link-color: #8ab4f8; /* Link color for dark theme */
+  --tooltip-bg: #fff; /* Tooltip background for dark theme */
+  --tooltip-color: #6495ed; /* Tooltip text color for dark theme */
+}
+
+/* Base Styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth theme transitions */
+}
+
+article {
+  background-color: var(--article-bg);
+  color: var(--article-text);
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 80rem;
+  border-radius: 0.8rem; /* Rounded corners for articles */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth transitions */
+}
+
+article a {
+  color: var(--link-color); /* Link color defined by theme variables */
+  text-decoration: none;
+  transition: color 0.3s ease-in-out; /* Smooth link color transitions */
+}
+
+article a:hover {
+  text-decoration: underline; /* Underline on hover for better UX */
+}
+
+/* Dark Mode Toggle Styles */
+.dark-mode-toggle {
+  font-size: clamp(2rem, 1vw, 3rem); /* Dynamically resize for responsiveness */
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  background-color: transparent; /* Ensure no background flashes */
+  color: var(--text-color); /* Adjusts with theme */
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.dark-mode-toggle:focus-visible {
+  outline: 2px solid var(--tooltip-color); /* Provide visible focus for accessibility */
+  outline-offset: 4px;
+}
+
+.dark-mode-toggle:active {
+  background-color: transparent; /* Avoid background flashes on active state */
+}
+
+/* Tooltip Styles */
+.dark-mode-toggle::after {
+  content: attr(aria-label);
+  position: absolute;
+  top: 150%;
+  transform: translateX(-50%);
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-color);
+  font-size: clamp(0.7rem, 1vw, 1rem); /* Consistent tooltip size */
+  padding: 0.4rem 0.8rem;
+  border: 0.3rem solid var(--tooltip-color);
+  border-radius: 0.4rem;
+  opacity: 0;
+  white-space: nowrap; /* Prevent tooltip wrapping */
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out, top 0.3s ease-in-out;
+  z-index: 1000; /* Ensure tooltip appears above other elements */
+}
+
+.dark-mode-toggle:hover::after,
+.dark-mode-toggle:focus::after {
+  opacity: 1; /* Make tooltip visible on hover and focus */
+  top: 100%; /* Slide tooltip upward */
+}
+
+/* Touch Device Adjustments */
+@media (hover: none) and (pointer: coarse) {
+  .dark-mode-toggle {
+    background-color: transparent; /* Reset background for touch devices */
+  }
+
+  .dark-mode-toggle:focus {
+    outline: none; /* Remove focus outlines on touch */
+    box-shadow: none; /* Suppress visual artifacts */
+  }
+
+  .dark-mode-toggle::after {
+    display: none; /* Disable tooltips on touch devices */
+  }
+}
+
+/* Icon Styles */
+.dark-mode-toggle i {
+  border-radius: 50%; /* Circular background */
+  padding: 0.2em;
+  width: 1em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+  border: 0.2rem solid var(--tooltip-color); /* Match tooltip border color */
+}
+
+/* Light and Dark Theme Icons */
+[data-theme="light"] .dark-mode-toggle i {
+  color: var(--tooltip-color); /* Sun icon color for light theme */
+  background-color: var(--tooltip-bg); /* Dark circle for light theme */
+}
+
+[data-theme="dark"] .dark-mode-toggle i {
+  transform: rotate(360deg); /* Rotation effect */
+  color: var(--tooltip-color); /* Moon icon color for dark theme */
+  background-color: var(--tooltip-bg); /* Light circle for dark theme */
+}
+
+/* RTL Support */
+[dir="rtl"] .dark-mode-toggle {
+  right: auto; /* Align to left for RTL */
+  left: 1rem;
+}
+
+[dir="rtl"] .dark-mode-toggle::after {
+  left: auto; /* Adjust tooltip alignment for RTL */
+  right: 50%;
+  transform: translateX(50%);
+}
